@@ -1,0 +1,18 @@
+services:
+    itm_nginx_publish_stream_event.configuration:
+        class: ITM\NginxPublishStreamEventBundle\Service\Configuration
+
+    itm_nginx_publish_stream_event.command:
+        class: ITM\NginxPublishStreamEventBundle\Command\ConfigurationDumper
+        tags:
+            -  { name: console.command }
+
+
+#    test_endpoint:
+#        class: NginxPublishStream\Stream\Endpoint
+#
+#    test_config:
+#        class: NginxPublishStream\Stream\Configuration
+#        arguments: ["http://localhost", 8080, "@test_endpoint"]
+#        tags:
+#            - { name: nginx.config, key: localhost }
