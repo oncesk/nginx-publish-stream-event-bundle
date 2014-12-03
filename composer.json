@@ -1,5 +1,5 @@
 {
-    "name": "oncesk/nginx-publish-stream-event-bundle",
+    "name": "maxsyskov/nginx-publish-stream-event-bundle",
     "require": {
         "oncesk/nginx-publish-stream": "~1.0"
     },
@@ -16,5 +16,11 @@
             "name": "Maxim Syskov",
             "email": "maxim.syskov@itmhouse.com"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-4": {
+            "NginxPublishStreamEventBundle\\": "src/NginxPublishStreamEventBundle"
+        }
+    }
+
 }

@@ -3,7 +3,7 @@ function createEventEmitter(obj) {
 	obj.emit = function (name, data) {
 		if (name in this._events) {
 			for (var i in this._events[name]) {
-				this._events[name][i].call(this, [event]);
+				this._events[name][i].call(this, data);
 			}
 		}
 		return this;
@@ -30,7 +30,7 @@ function createEventEmitter(obj) {
 
 function NginxPublishStream(configuration) {
 	this.channels = {};
-	$.extend({
+    configuration = $.extend({
 		host: window.location.hostname,
 		port: window.location.port,
 		modes : "websocket|eventsource|stream"
@@ -73,6 +73,9 @@ NginxPublishStream.prototype.listen = function () {
 	var self = this;
 	this.pushStream = new PushStream(this.configuration);
 	this.pushStream.onmessage = function (json, id, channel, eventid, isLastMessageFromBatch) {
+        if (typeof json == 'string') {
+            json = JSON.parse(json);
+        }
 		self.channel(channel).emit('message', json);
 		var eventName = self.resolveEventName(json);
 		if (eventName) {
@@ -137,39 +140,22 @@ NginxChannel.prototype.connect = function () {
 	this.emit('connect');
 };
 
-var configuration = {
-	'localhost' : {
-		'host' : 'http://localhost',
-		'port' : 8080,
-		'endpoint' : {
-			pub : 'pub'
-		}
-	}
+var NginxManager = {
+
+    /**
+     *
+     * @param key
+     * @param options
+     * @returns {NginxPublishStream}
+     */
+	get : function (key, options) {
+        if (key in this.streams) {
+            return this.streams[key];
+        }
+		var conf = NginxConfig[key];
+        options = $.extend({modes : 'longpolling'}, conf, options || {});
+		return this.streams[key] = new NginxPublishStream(options);
+	},
+
+    streams : {}
 };
-
-NginxManager = {
-
-	get : function (key) {
-		var conf = configuration[key];
-		return new NginxPublishStream({
-			host : 'localhost',
-			port : 8080,
-			modes : "longpolling",
-			urlPrefixLongpolling : "/sub"
-		});
-	}
-};
-
-$(function () {
-	var stream =
-		NginxManager.get('localhost').channel('my_channel_1').on('hello', function (event) {
-		console.log('its works');
-		console.log(event);
-		var self = this;
-		setTimeout(function () {
-			self.publish('sdfsdf sd fsd ');
-		}, 1000);
-
-	});
-	stream.listen();
-});

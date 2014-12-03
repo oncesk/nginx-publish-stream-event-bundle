@@ -11,7 +11,8 @@ class ConfigurationDumper extends ContainerAwareCommand
 	{
 		$this
 			->setName('nginx:stream:jsconfig')
-			->setDescription('Dump nginx publish stream configuration into javascript files');
+			->setDescription('Dump nginx publish stream configuration into javascript files')
+            ->addArgument('target', null, '', 'web/js');
 	}
 
 	protected function execute(InputInterface $input, OutputInterface $output)
@@ -19,5 +20,11 @@ class ConfigurationDumper extends ContainerAwareCommand
         $configurations = $this->getContainer()->get('nginx_publish_stream_event.configuration')->getConfigurations();
 		$dir = $this->getContainer()->get('kernel')->getRootDir();
 		$test = $configurations;
-	}
+        $filesystem = $this->getContainer()->get('filesystem');
+        $target = $input->getArgument('target');
+        $filesystem->mkdir($target, 0777);
+        $filename = $target.'/nginx_config.js';
+        $generator = new Generator\NginxConfigGenerator();
+        $filesystem->dumpFile($filename, $generator->generate($configurations));
+    }
 }
