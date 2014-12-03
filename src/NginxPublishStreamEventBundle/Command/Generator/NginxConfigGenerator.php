@@ -24,7 +24,7 @@ class NginxConfigGenerator
             $dump[$key]['modes'] = 'longpolling';
             $dump[$key]['urlPrefixLongpolling'] = '/sub';
         }
-        return 'var NginxConfig = ' . json_encode($dump);
+        return 'var NginxConfig = ' . json_encode($dump, JSON_UNESCAPED_SLASHES);
     }
 
 }
