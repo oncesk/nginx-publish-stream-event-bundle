@@ -16,7 +16,7 @@ class ConfigurationDumper extends ContainerAwareCommand
 
 	protected function execute(InputInterface $input, OutputInterface $output)
 	{
-		$configurations = $this->getContainer()->get('nginx_publish_stream_event.configuration')->getConfigurations();
+        $configurations = $this->getContainer()->get('nginx_publish_stream_event.configuration')->getConfigurations();
 		$dir = $this->getContainer()->get('kernel')->getRootDir();
 		$test = $configurations;
 	}

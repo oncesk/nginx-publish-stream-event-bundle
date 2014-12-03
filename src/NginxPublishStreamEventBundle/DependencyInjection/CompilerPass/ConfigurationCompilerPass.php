@@ -16,13 +16,13 @@ class ConfigurationCompilerPass implements CompilerPassInterface {
 	 */
 	public function process(ContainerBuilder $container)
 	{
-		if (!$container->hasDefinition('itm_nginx_publish_stream_event.configuration')) {
+		if (!$container->hasDefinition('nginx_publish_stream_event.configuration')) {
 			return;
 		}
 
-		$definition = $container->getDefinition('itm_nginx_publish_stream_event.configuration');
+		$definition = $container->getDefinition('nginx_publish_stream_event.configuration');
 		foreach ($container->findTaggedServiceIds('nginx.config') as $id => $attributes) {
 			$definition->addMethodCall('addConfiguration', [$attributes[0]['key'], new Reference($id)]);
 		}
-	}
+    }
 } 
