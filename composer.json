@@ -8,5 +8,11 @@
             "name": "Maxim Syskov",
             "email": "maxim.syskov@itmhouse.com"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-4": {
+            "NginxPublishStreamEventBundle\\": "src/NginxPublishStreamEventBundle"
+        }
+    }
+
 }

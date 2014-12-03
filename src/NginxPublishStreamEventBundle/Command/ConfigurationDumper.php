@@ -19,5 +19,6 @@ class ConfigurationDumper extends ContainerAwareCommand
         $configurations = $this->getContainer()->get('nginx_publish_stream_event.configuration')->getConfigurations();
 		$dir = $this->getContainer()->get('kernel')->getRootDir();
 		$test = $configurations;
+        print_r($configurations);die;
 	}
 }
