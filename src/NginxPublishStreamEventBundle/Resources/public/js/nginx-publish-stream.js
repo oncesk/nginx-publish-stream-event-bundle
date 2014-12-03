@@ -137,27 +137,24 @@ NginxChannel.prototype.connect = function () {
 	this.emit('connect');
 };
 
-var configuration = {
-	'localhost' : {
-		'host' : 'http://localhost',
-		'port' : 8080,
-		'endpoint' : {
-			pub : 'pub'
-		}
-	}
-};
+var NginxManager = {
 
-NginxManager = {
+    /**
+     *
+     * @param key
+     * @param options
+     * @returns {NginxPublishStream}
+     */
+	get : function (key, options) {
+        if (key in this.streams) {
+            return this.streams[key];
+        }
+		var conf = NginxConfig[key];
+        options = typeof options == 'object' ? $.extend(conf, options) : conf;
+		return this.streams[key] = new NginxPublishStream(options);
+	},
 
-	get : function (key) {
-		var conf = configuration[key];
-		return new NginxPublishStream({
-			host : 'localhost',
-			port : 8080,
-			modes : "longpolling",
-			urlPrefixLongpolling : "/sub"
-		});
-	}
+    streams : {}
 };
 
 $(function () {
