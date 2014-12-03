@@ -22,7 +22,8 @@ class NginxConfigGenerator
             'lp'  => 'longpolling',
             'ws'  => 'websocket',
         );
-        foreach ($configurations as $key=>$config) {
+        foreach ($configurations as $key=>$config)
+        {
             $url = parse_url($config->getHost());
             $dump[$key]['host'] = $url['host'];
             $dump[$key]['protocol'] = $url['scheme'];
@@ -30,10 +31,11 @@ class NginxConfigGenerator
             $dump[$key]['endpoint']['pub'] = $config->getEndpoint()->getPub();
             $dump[$key]['endpoint']['sub'] = $config->getEndpoint()->getSub();
 
-            if (in_array($sub = ltrim($dump[$key]['endpoint']['sub'], '/'), $availableSub))
-                $dump[$key]['modes'] = $availableSub[$sub];
+            if (array_key_exists(ltrim($dump[$key]['endpoint']['sub'], '/'), $availableSub))
+            {
+                $dump[$key]['modes'] = $availableSub[$dump[$key]['endpoint']['sub']];
+            }
 
-            $dump[$key]['urlPrefixLongpolling'] = '/sub';
             $dump[$key]['urlPrefixPublisher'] =  '/' . ltrim($config->getEndpoint()->getPub(), '/');
         }
         return 'var NginxConfig = ' . json_encode($dump, JSON_UNESCAPED_SLASHES);
