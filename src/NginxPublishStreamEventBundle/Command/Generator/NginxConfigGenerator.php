@@ -15,7 +15,9 @@ class NginxConfigGenerator
     {
         $dump = array();
         foreach ($configurations as $key=>$config) {
-            $dump[$key]['host'] = $config->getHost();
+            $url = parse_url($config->getHost());
+            $dump[$key]['host'] = $url['host'];
+            $dump[$key]['protocol'] = $url['scheme'];
             $dump[$key]['port'] = $config->getPort();
             $dump[$key]['endpoint']['pub'] = $config->getEndpoint()->getPub();
             $dump[$key]['endpoint']['sub'] = $config->getEndpoint()->getSub();
