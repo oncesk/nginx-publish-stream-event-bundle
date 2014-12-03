@@ -21,6 +21,8 @@ class NginxConfigGenerator
             $dump[$key]['port'] = $config->getPort();
             $dump[$key]['endpoint']['pub'] = $config->getEndpoint()->getPub();
             $dump[$key]['endpoint']['sub'] = $config->getEndpoint()->getSub();
+            $dump[$key]['modes'] = 'longpolling';
+            $dump[$key]['urlPrefixLongpolling'] = '/sub';
         }
         return 'var NginxConfig = ' . json_encode($dump);
     }
