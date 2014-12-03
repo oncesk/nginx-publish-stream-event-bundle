@@ -1,5 +1,5 @@
 {
-    "name": "maxsyskov/nginx-publish-stream-event-bundle",
+    "name": "oncesk/nginx-publish-stream-event-bundle",
     "require": {
         "oncesk/nginx-publish-stream": "~1.0"
     },
