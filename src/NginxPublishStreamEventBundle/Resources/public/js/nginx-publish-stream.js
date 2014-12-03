@@ -159,20 +159,3 @@ var NginxManager = {
 
     streams : {}
 };
-
-$(function () {
-		NginxManager.get('localhost').channel('my_channel_1').on('hello', function (event) {
-		console.log('its works');
-		console.log(event);
-		var self = this;
-		setTimeout(function () {
-			self.publish('sdfsdf sd fsd ');
-		}, 1000);
-
-	});
-    var stream = NginxManager.get('localhost');
-    stream.addEventNameResolver(function () {
-        return 'hello';
-    });
-	stream.listen();
-});

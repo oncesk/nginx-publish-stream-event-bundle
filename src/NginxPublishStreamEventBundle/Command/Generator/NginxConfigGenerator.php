@@ -1,7 +1,5 @@
 <?php
 namespace NginxPublishStreamEventBundle\Command\Generator;
-use Doctrine\Common\Proxy\Exception\InvalidArgumentException;
-use Symfony\Component\Security\Acl\Exception\Exception;
 
 /**
  * Class NginxChatConfigGenerator
