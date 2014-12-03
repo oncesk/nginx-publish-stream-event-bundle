@@ -5,6 +5,14 @@
     },
     "authors": [
         {
+            "name": "Alexey Panasik",
+            "email": "unnfly@gmail.com"
+        },
+        {
+            "name": "Igor German",
+            "email": "iggerman@yandex.ru"
+        },
+        {
             "name": "Maxim Syskov",
             "email": "maxim.syskov@itmhouse.com"
         }
