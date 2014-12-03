@@ -10,6 +10,7 @@ services:
 
     test_endpoint:
         class: NginxPublishStream\Stream\Endpoint
+        arguments: ['pub', 'lp']
 
     test_config:
         class: NginxPublishStream\Stream\Configuration
