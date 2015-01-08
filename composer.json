@@ -1,7 +1,7 @@
 {
     "name": "oncesk/nginx-publish-stream-event-bundle",
     "require": {
-        "oncesk/nginx-publish-stream": "~1.0"
+        "oncesk/nginx-publish-stream": "dev-master"
     },
     "authors": [
         {
